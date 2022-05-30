@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react' //Hooks
 // State for dynamic data
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import About from './components/About'
+import Footer from './components/Footer'
+import TaskDetails from './components/TaskDetails'
 
 
 const App = ()  => {
@@ -83,12 +87,37 @@ const toggleReminder = async (id) => {
 }
 
   return ( // Below is all JSX
+  <Router>
     <div className="container">
-      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'Empty List'}
+      <Header 
+      onAdd={() => setShowAddTask(!showAddTask)} 
+      showAdd={showAddTask} 
+      />
+      <Routes>
+      <Route
+        path='/'
+        element= { 
+          <>
+            {showAddTask && <AddTask onAdd={addTask} />}
+            {tasks.length > 0 ? ( 
+            <Tasks 
+            tasks={tasks} 
+            onDelete={deleteTask} 
+            onToggle={toggleReminder}
+            /> 
+          ) : (
+             'Empty List'
+             )}
+        </>
+        }
+        />
+        <Route path='/about' element={<About />} />
+        <Route path='/task/:id' element={<TaskDetails />} />
+        </Routes>
+        <Footer />
     </div>
-  );
+    </Router>
+  )
 }
 
 export default App;

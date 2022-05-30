@@ -11,6 +11,12 @@
       "day": "Saturday 6am",
       "reminder": true,
       "id": 2
+    },
+    {
+      "text": "Work on React App",
+      "day": "Tuesday 3:30pm",
+      "reminder": false,
+      "id": 3
     }
   ]
 }
